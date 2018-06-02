@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
@@ -26,7 +27,10 @@
                   <AnchorPane prefHeight="258.0" prefWidth="200.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54503a" height="200.0" layoutX="90.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
-                        <VBox fx:id="stack1" alignment="BOTTOM_CENTER" layoutY="2.0" prefHeight="252.0" prefWidth="200.0" spacing="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <VBox fx:id="stack1" alignment="BOTTOM_CENTER" layoutY="2.0" onDragDetected="#onDragDetected" onDragDone="#onDragDone" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="252.0" prefWidth="200.0" spacing="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                           <rotationAxis>
+                              <Point3D />
+                           </rotationAxis></VBox>
                      </children>
                   </AnchorPane>
                </children>
@@ -36,7 +40,7 @@
                   <AnchorPane prefHeight="258.0" prefWidth="200.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54503a" height="200.0" layoutX="90.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
-                        <VBox fx:id="stack2" alignment="BOTTOM_CENTER" layoutY="2.0" prefHeight="252.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <VBox fx:id="stack2" alignment="BOTTOM_CENTER" layoutY="2.0" onDragDetected="#onDragDetected" onDragDone="#onDragDone" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="252.0" prefWidth="200.0" spacing="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>
@@ -46,18 +50,19 @@
                   <AnchorPane prefHeight="258.0" prefWidth="200.0">
                      <children>
                         <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#54503a" height="200.0" layoutX="90.0" layoutY="50.0" stroke="BLACK" strokeType="INSIDE" width="20.0" />
-                        <VBox fx:id="stack3" alignment="BOTTOM_CENTER" layoutY="2.0" prefHeight="252.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                        <VBox fx:id="stack3" alignment="BOTTOM_CENTER" layoutY="2.0" onDragDetected="#onDragDetected" onDragDone="#onDragDone" onDragDropped="#onDragDropped" onDragOver="#onDragOver" prefHeight="252.0" prefWidth="200.0" spacing="1.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                      </children>
                   </AnchorPane>
                </children>
             </VBox>
          </children>
       </GridPane>
-      <Label fx:id="moves" contentDisplay="CENTER" layoutX="286.0" layoutY="29.0" maxHeight="20.0" maxWidth="40.0" minHeight="20.0" minWidth="40.0" text="0">
+      <Label fx:id="movesCounter" contentDisplay="CENTER" layoutX="286.0" layoutY="29.0" maxHeight="20.0" maxWidth="40.0" minHeight="20.0" minWidth="40.0">
          <font>
             <Font name="Lucida Console" size="14.0" />
          </font>
       </Label>
       <Button layoutX="479.0" layoutY="361.0" mnemonicParsing="false" onAction="#backToSelect" text="Back to Selection" />
+      <Button layoutX="260.0" layoutY="361.0" mnemonicParsing="false" onAction="#resetGame" text="Reset Game" />
    </children>
 </AnchorPane>

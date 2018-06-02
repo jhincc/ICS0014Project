@@ -4,13 +4,13 @@ package hanoi;
 import javafx.scene.shape.Rectangle;
 
 public class Disc extends Rectangle {
-    private Double size;
+    private Integer size;
 
-    public Disc(Double size) {
+    public Disc(Integer size) {
         this.size = size;
     }
 
-    public Double getSize() {
+    public Integer getSize() {
         return size;
     }
 
