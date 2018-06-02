@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hanoi.HighScoresController">
+   <children>
+      <Button layoutX="462.0" layoutY="361.0" mnemonicParsing="false" onAction="#backToSelection" text="Back to Main Screen" />
+      <TableView layoutX="35.0" layoutY="85.0" prefHeight="247.0" prefWidth="525.0">
+        <columns>
+          <TableColumn fx:id="col_user" editable="false" prefWidth="274.0" text="Username" />
+          <TableColumn fx:id="col_moves" editable="false" prefWidth="76.0" text="Moves" />
+            <TableColumn fx:id="col_date" editable="false" prefWidth="174.0" text="Date" />
+        </columns>
+      </TableView>
+      <RadioButton layoutX="35.0" layoutY="60.0" mnemonicParsing="false" selected="true" text="All time">
+         <toggleGroup>
+            <ToggleGroup fx:id="selectedTime" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton layoutX="97.0" layoutY="60.0" mnemonicParsing="false" text="Last month" toggleGroup="$selectedTime">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </RadioButton>
+      <RadioButton layoutX="188.0" layoutY="60.0" mnemonicParsing="false" text="Today" toggleGroup="$selectedTime">
+         <padding>
+            <Insets left="10.0" />
+         </padding>
+      </RadioButton>
+   </children>
+</AnchorPane>
