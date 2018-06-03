@@ -28,7 +28,7 @@ public class HighScoresController implements Initializable {
     @FXML private TableColumn<HighScore, Integer> col_moves;
     @FXML private TableColumn<HighScore, String> col_user;
 
-    ObservableList<HighScore> oblist = FXCollections.observableArrayList();
+
 
 
 
@@ -44,22 +44,57 @@ public class HighScoresController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        col_user.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_moves.setCellValueFactory(new PropertyValueFactory<>("moves"));
+        col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        allTimeScores();
 
+
+    }
+
+    public void allTimeScores() {
+        score.getItems().clear();
+        ObservableList<HighScore> oblist = FXCollections.observableArrayList();
         try {
             Connection con = DBConnector.getConnection();
             ResultSet rs = con.createStatement().executeQuery("select * from scores order by moves desc");
             while (rs.next()){
-                oblist.add(new HighScore(rs.getString("name"), rs.getInt("moves"), rs.getString("date")));
+                oblist.add(new HighScore(rs.getString("name"), rs.getInt("moves"), rs.getString("scoredate")));
             }
+            score.setItems(oblist);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        col_user.setCellValueFactory(new PropertyValueFactory<>("name"));
-        col_moves.setCellValueFactory(new PropertyValueFactory<>("moves"));
-        col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
-        score.setItems(oblist);
 
+    }
+    public void lastMonthScores() {
+        score.getItems().clear();
+        ObservableList<HighScore> oblist = FXCollections.observableArrayList();
+        try {
+            Connection con = DBConnector.getConnection();
+            ResultSet rs = con.createStatement().executeQuery("select * from scores where scoredate >= date_sub(now(), interval 30 day) order by moves desc");
+            while (rs.next()){
+                oblist.add(new HighScore(rs.getString("name"), rs.getInt("moves"), rs.getString("scoredate")));
+            }
+            score.setItems(oblist);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
+    }
+    public void todayScores() {
+        score.getItems().clear();
+        ObservableList<HighScore> oblist = FXCollections.observableArrayList();
+        try {
+            Connection con = DBConnector.getConnection();
+            ResultSet rs = con.createStatement().executeQuery("select * from scores where DATE(scoredate = CURRENT_DATE ) order by moves desc");
+            while (rs.next()){
+                oblist.add(new HighScore(rs.getString("name"), rs.getInt("moves"), rs.getString("scoredate")));
+            }
+            score.setItems(oblist);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
 }

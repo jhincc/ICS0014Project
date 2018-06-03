@@ -17,17 +17,17 @@
             <TableColumn fx:id="col_date" editable="false" prefWidth="174.0" text="Date" />
         </columns>
       </TableView>
-      <RadioButton layoutX="35.0" layoutY="60.0" mnemonicParsing="false" selected="true" text="All time">
+      <RadioButton layoutX="35.0" layoutY="60.0" mnemonicParsing="false" onAction="#allTimeScores" selected="true" text="All time">
          <toggleGroup>
             <ToggleGroup fx:id="selectedTime" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton layoutX="97.0" layoutY="60.0" mnemonicParsing="false" text="Last month" toggleGroup="$selectedTime">
+      <RadioButton layoutX="97.0" layoutY="60.0" mnemonicParsing="false" onAction="#lastMonthScores" text="Last month" toggleGroup="$selectedTime">
          <padding>
             <Insets left="10.0" />
          </padding>
       </RadioButton>
-      <RadioButton layoutX="188.0" layoutY="60.0" mnemonicParsing="false" text="Today" toggleGroup="$selectedTime">
+      <RadioButton layoutX="188.0" layoutY="60.0" mnemonicParsing="false" onAction="#todayScores" text="Today" toggleGroup="$selectedTime">
          <padding>
             <Insets left="10.0" />
          </padding>
