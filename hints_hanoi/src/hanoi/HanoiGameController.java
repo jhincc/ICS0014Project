@@ -1,24 +1,24 @@
 package hanoi;
 
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.*;
-import javafx.scene.layout.Pane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import javax.sound.sampled.Clip;
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class HanoiGameController implements Initializable {
@@ -96,6 +96,7 @@ public class HanoiGameController implements Initializable {
         final Object sourceBox = event.getGestureSource();
         boolean dragCompleted = false;
         if (sourceBox instanceof VBox) {
+            VBox source = (VBox) sourceBox;
             final Object targetBox = event.getGestureTarget();
             if (targetBox instanceof VBox) {
                 VBox target = (VBox) targetBox;
@@ -104,16 +105,20 @@ public class HanoiGameController implements Initializable {
                     Integer draggedSize = Integer.valueOf(drag.getString());
                     if(target.getChildren().isEmpty()){
                         target.getChildren().add(0,createDisc(draggedSize));
+                        source.getChildren().remove(0);
+                        increaseCounter();
                         dragCompleted = true;
                     } else {
                         Disc previous = (Disc) target.getChildren().get(0);
                         if (draggedSize < previous.getSize()){
                             target.getChildren().add(0,createDisc(draggedSize));
+                            source.getChildren().remove(0);
+                            increaseCounter();
                             dragCompleted = true;
                             if(target.getId() != stack1.getId()){
                                 checkVictory(target);
                             }
-                        }
+                                                    }
                     }
                 }
                 event.setDropCompleted(dragCompleted);
@@ -124,24 +129,43 @@ public class HanoiGameController implements Initializable {
     }
 
     public void onDragDone(DragEvent event){
-        TransferMode tm = event.getTransferMode();
-        if(tm == TransferMode.MOVE){
-            final Object source = event.getGestureSource();
-            if(source instanceof VBox){
-                VBox sourceBox = (VBox) source;
-                sourceBox.getChildren().remove(0);
-                movesCounter.setText(String.valueOf(Integer.valueOf(movesCounter.getText()) + 1));
-            }
-        }
         event.consume();
+    }
+
+    private void increaseCounter() {
+        movesCounter.setText(String.valueOf(Integer.valueOf(movesCounter.getText()) + 1));
     }
 
     public void checkVictory(VBox vbox){
         if (vbox.getChildren().size() == 4){
-            System.out.println("You wonnered!");
+            TextInputDialog dialog = new TextInputDialog("Player");
+            dialog.setTitle("You won!");
+            if (Integer.valueOf(movesCounter.getText())== 15){
+                dialog.setHeaderText("Congratulations, a perfect score!\n Do you wish to store your score in the database?");
+            } else {
+                dialog.setHeaderText("Congratulations, you made "+ movesCounter.getText() +" moves!\nDo you wish to store your score in the database?");
+            }
+            dialog.setContentText("Please enter your name:");
+            Optional<String> result = dialog.showAndWait();
+            result.ifPresent(name -> insertScore(name,Integer.valueOf(movesCounter.getText())));
 
         }
 
+    }
+
+    private void insertScore(String name, Integer moves){
+        try {
+            Connection con = DBConnector.getConnection();
+            String query = " insert into scores (name, moves)" + " values (?,?)";
+            PreparedStatement prep = con.prepareStatement(query);
+            prep.setString(1, name);
+            prep.setInt(2, moves);
+            prep.execute();
+            con.close();
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 }

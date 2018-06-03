@@ -57,11 +57,12 @@ public class HighScoresController implements Initializable {
         ObservableList<HighScore> oblist = FXCollections.observableArrayList();
         try {
             Connection con = DBConnector.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("select * from scores order by moves desc");
+            ResultSet rs = con.createStatement().executeQuery("select * from scores order by moves asc");
             while (rs.next()){
                 oblist.add(new HighScore(rs.getString("name"), rs.getInt("moves"), rs.getString("scoredate")));
             }
             score.setItems(oblist);
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -72,11 +73,12 @@ public class HighScoresController implements Initializable {
         ObservableList<HighScore> oblist = FXCollections.observableArrayList();
         try {
             Connection con = DBConnector.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("select * from scores where scoredate >= date_sub(now(), interval 30 day) order by moves desc");
+            ResultSet rs = con.createStatement().executeQuery("select * from scores where scoredate >= date_sub(now(), interval 30 day) order by moves asc");
             while (rs.next()){
                 oblist.add(new HighScore(rs.getString("name"), rs.getInt("moves"), rs.getString("scoredate")));
             }
             score.setItems(oblist);
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -87,11 +89,12 @@ public class HighScoresController implements Initializable {
         ObservableList<HighScore> oblist = FXCollections.observableArrayList();
         try {
             Connection con = DBConnector.getConnection();
-            ResultSet rs = con.createStatement().executeQuery("select * from scores where DATE(scoredate = CURRENT_DATE ) order by moves desc");
+            ResultSet rs = con.createStatement().executeQuery("select * from scores where scoredate >= date_sub(now(), interval 1 day) order by moves asc");
             while (rs.next()){
                 oblist.add(new HighScore(rs.getString("name"), rs.getInt("moves"), rs.getString("scoredate")));
             }
             score.setItems(oblist);
+            con.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
