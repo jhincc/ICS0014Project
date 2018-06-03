@@ -1,0 +1,9 @@
+.root {
+    -fx-background-image: url(hanoi-2650480_640.jpg);
+    -fx-background-repeat: stretch;
+    -fx-background-size: 610 410;
+}
+
+.button {
+    -fx-background-color: #6C4F3D;
+}

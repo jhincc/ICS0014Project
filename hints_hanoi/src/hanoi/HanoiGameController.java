@@ -54,6 +54,8 @@ public class HanoiGameController implements Initializable {
         Disc disc = new Disc(size);
         disc.setHeight(25);
         disc.setWidth(size * 30);
+        disc.setArcHeight(10);
+        disc.setArcWidth(10);
         disc.setFill(Color.DODGERBLUE);
         return disc;
     }

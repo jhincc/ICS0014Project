@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hanoi.HighScoresController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hanoi.HighScoresController">
    <children>
       <Button layoutX="462.0" layoutY="361.0" mnemonicParsing="false" onAction="#backToSelection" text="Back to Main Screen" />
       <TableView fx:id="score" layoutX="35.0" layoutY="85.0" prefHeight="247.0" prefWidth="525.0">
