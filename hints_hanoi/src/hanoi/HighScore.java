@@ -5,37 +5,26 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 public class HighScore {
-    private final StringProperty name;
-    private final StringProperty moves;
-    private final StringProperty date;
+    private final String name;
+    private final Integer moves;
+    private final String date;
 
-    public HighScore(String name, String moves, String date) {
-        this.name = new SimpleStringProperty(name);
-        this.moves = new SimpleStringProperty(moves);
-        this.date = new SimpleStringProperty(date);
+    public HighScore(String name, Integer moves, String date) {
+        this.name = name;
+        this.moves = moves;
+        this.date = date;
     }
 
     public String getName() {
-        return name.get();
-    }
-
-    public StringProperty nameProperty() {
         return name;
     }
 
-    public String getMoves() {
-        return moves.get();
-    }
-
-    public StringProperty movesProperty() {
+    public Integer getMoves() {
         return moves;
     }
 
     public String getDate() {
-        return date.get();
-    }
-
-    public StringProperty dateProperty() {
         return date;
     }
+
 }

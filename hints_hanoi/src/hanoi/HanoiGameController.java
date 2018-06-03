@@ -139,6 +139,7 @@ public class HanoiGameController implements Initializable {
     public void checkVictory(VBox vbox){
         if (vbox.getChildren().size() == 4){
             System.out.println("You wonnered!");
+
         }
 
     }

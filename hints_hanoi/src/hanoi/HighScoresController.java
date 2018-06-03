@@ -1,5 +1,7 @@
 package hanoi;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -9,16 +11,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class HighScoresController implements Initializable {
-    @FXML private TableView score;
+
+    @FXML private TableView<HighScore> score;
+    @FXML private TableColumn<HighScore, String> col_date;
+    @FXML private TableColumn<HighScore, Integer> col_moves;
+    @FXML private TableColumn<HighScore, String> col_user;
+
+    ObservableList<HighScore> oblist = FXCollections.observableArrayList();
 
 
 
@@ -34,11 +44,22 @@ public class HighScoresController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         try {
             Connection con = DBConnector.getConnection();
+            ResultSet rs = con.createStatement().executeQuery("select * from scores order by moves desc");
+            while (rs.next()){
+                oblist.add(new HighScore(rs.getString("name"), rs.getInt("moves"), rs.getString("date")));
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        col_user.setCellValueFactory(new PropertyValueFactory<>("name"));
+        col_moves.setCellValueFactory(new PropertyValueFactory<>("moves"));
+        col_date.setCellValueFactory(new PropertyValueFactory<>("date"));
+        score.setItems(oblist);
+
+
 
     }
 }

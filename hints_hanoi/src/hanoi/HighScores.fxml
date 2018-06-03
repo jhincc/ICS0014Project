@@ -10,7 +10,7 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="hanoi.HighScoresController">
    <children>
       <Button layoutX="462.0" layoutY="361.0" mnemonicParsing="false" onAction="#backToSelection" text="Back to Main Screen" />
-      <TableView layoutX="35.0" layoutY="85.0" prefHeight="247.0" prefWidth="525.0">
+      <TableView fx:id="score" layoutX="35.0" layoutY="85.0" prefHeight="247.0" prefWidth="525.0">
         <columns>
           <TableColumn fx:id="col_user" editable="false" prefWidth="274.0" text="Username" />
           <TableColumn fx:id="col_moves" editable="false" prefWidth="76.0" text="Moves" />
